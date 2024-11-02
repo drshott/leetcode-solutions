@@ -8,18 +8,18 @@ class Solution:
         s = s.strip()
         sign = True
         digits = ""
-
-        if s[0] in ['+', '-']:
-            if s[0] == '-':
-                sign = False
-                s = s[1:]
-        if s[0] not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '-']:
-            return 0
+        num_match = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+        sign_match = ['+', '-']
 
         for i in range(len(s)):
-            if s[i] in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
+            if i == 0:
+                if s[i] in sign_match and s[i] == '-':
+                    sign = False
+                if s[i] not in num_match + sign_match:
+                    return 0
+            if s[i] in num_match:
                 digits += s[i]
-            elif s[i] not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] and len(digits) > 0:
+            elif s[i] not in num_match and len(digits) > 0:
                 break
             else:
                 continue
@@ -27,4 +27,4 @@ class Solution:
         if not sign:
             return -int(digits)
         else:
-            return int(digits[1])
+            return int(digits)
